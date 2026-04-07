@@ -1,13 +1,39 @@
 require("dotenv").config();
 const express = require("express");
+const app = express();
+
+const cors = require("cors");
 const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const { initializeDatabase } = require("./db/db.connection");
-const app = express();
+const { Student } = require("./models/student.model");
+
+app.use(cors());
+app.use(express.json());
 initializeDatabase();
 
 app.get("/", (req, res) => {
   res.send("Welcome to expressjs");
+});
+
+app.get("/students", async (req, res) => {
+  try {
+    const students = await Student.find();
+    res.json(students);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/students", async (req, res) => {
+  const { name, age, grade } = req.body;
+  try {
+    const student = new Student({ name, age, grade });
+    await student.save();
+    res.status(201).json(student);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 const PORT = process.env.PORT || 4001;
