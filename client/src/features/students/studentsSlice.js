@@ -9,6 +9,17 @@ export const fetchStudents = createAsyncThunk(
   },
 );
 
+export const addStudentAsync = createAsyncThunk(
+  "students/addStudentAsync",
+  async (newStudent) => {
+    const response = await axios.post(
+      "http://localhost:4001/students",
+      newStudent,
+    );
+    return response.data;
+  },
+);
+
 const studentSlice = createSlice({
   name: "students",
   initialState: {
@@ -28,6 +39,9 @@ const studentSlice = createSlice({
     builder.addCase(fetchStudents.rejected, (state, action) => {
       state.status = "error";
       state.error = action.payload.message;
+    });
+    builder.addCase(addStudentAsync.fulfilled, (state, action) => {
+      state.students.push(action.payload);
     });
   },
 });
