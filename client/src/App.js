@@ -1,9 +1,15 @@
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
+import { StudentView } from "./features/students/StudentView";
+import Header from "./components/navbar/Header";
 
 function App() {
   return (
     <div className=''>
-      <h1>Hello</h1>
+      <BrowserRouter>
+      <Header/>
+        <StudentView />
+      </BrowserRouter>
     </div>
   );
 }
