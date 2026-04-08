@@ -20,6 +20,16 @@ export const addStudentAsync = createAsyncThunk(
   },
 );
 
+export const updateStudentAsync = createAsyncThunk(
+  "student/updateStudentAsync",
+  async ({ id, updatedStudent }) => {
+    const response = await axios.put(
+      `http://localhost:4001/students/${id}`,
+      updatedStudent,
+    );
+    return response.data;
+  },
+);
 const studentSlice = createSlice({
   name: "students",
   initialState: {
@@ -42,6 +52,12 @@ const studentSlice = createSlice({
     });
     builder.addCase(addStudentAsync.fulfilled, (state, action) => {
       state.students.push(action.payload);
+    });
+    builder.addCase(updateStudentAsync.fulfilled, (state, action) => {
+      const index = state.students.findIndex(
+        (s) => s._id === action.payload._id,
+      );
+      if (index !== -1) state.students[index] = action.payload;
     });
   },
 });

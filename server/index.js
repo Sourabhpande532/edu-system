@@ -36,6 +36,25 @@ app.post("/students", async (req, res) => {
   }
 });
 
+app.put("/students/:id", async (req, res) => {
+  const studentId = req.params.id;
+  const updatedStudentData = req.body;
+  try {
+    const updatedStudent = await Student.findByIdAndUpdate(
+      studentId,
+      updatedStudentData,
+      { new: true },
+    );
+    if (!updatedStudent) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    res.status(200).json(updatedStudent);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 const PORT = process.env.PORT || 4001;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
