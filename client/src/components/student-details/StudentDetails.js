@@ -1,11 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { fetchStudents } from "../../features/students/studentsSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  deleteStudentAsync,
+  fetchStudents,
+} from "../../features/students/studentsSlice";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const StudentDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { students, status } = useSelector((state) => state.students);
 
   const existingStudent = students.find((s) => s._id === id);
@@ -16,6 +21,14 @@ const StudentDetails = () => {
       dispatch(fetchStudents());
     }
   }, [dispatch, students.length]);
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this student?");
+    if (!confirmDelete) return;
+    await dispatch(deleteStudentAsync(id));
+    toast.success("Student deleted successfully");
+    navigate("/");
+  };
 
   if (status === "loading") return <p>Loading..</p>;
   if (!existingStudent) return <p>Student not found.</p>;
@@ -40,7 +53,12 @@ const StudentDetails = () => {
           </Link>
         </button>
         {"  "}
-        <button className='btn btn-danger'>Delete</button>
+        <button 
+        onClick={handleDelete} className='btn btn-danger'
+        disabled={status === "loading"}
+        >
+          {status === "loading" ? "Deleting..." : "Delete"}
+        </button>
       </div>
     </div>
   );

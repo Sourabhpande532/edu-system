@@ -7,6 +7,7 @@ const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const { initializeDatabase } = require("./db/db.connection");
 const { Student } = require("./models/student.model");
+const { error } = require("console");
 
 app.use(cors());
 app.use(express.json());
@@ -52,6 +53,23 @@ app.put("/students/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.delete("/students/:id", async (req, res) => {
+  const studentId = req.params.id;
+  try {
+    const deleteStudent = await Student.findByIdAndDelete(studentId);
+    if (!deleteStudent) {
+      return res.status(404).json({ error: "Student not found." });
+    }
+    res.status(200).json({
+      message: "Student deleted successfully",
+      student: deleteStudent,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

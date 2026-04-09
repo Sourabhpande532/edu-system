@@ -5,6 +5,7 @@ import {
   addStudentAsync,
   updateStudentAsync,
 } from "../../features/students/studentsSlice";
+import { toast } from "react-toastify";
 
 const StudentForm = () => {
   const dispatch = useDispatch();
@@ -51,12 +52,12 @@ const StudentForm = () => {
     if (existingStudent) {
       dispatch(
         updateStudentAsync({ id: existingStudent._id, updatedStudent: form }),
-        alert("Student Updated"),
+        toast.success("Student Updated"),
       );
     } else {
       dispatch(addStudentAsync(form));
       setForm({ name: "", age: "", grade: "", gender: "Male" });
-      alert("Student added successfully!");
+      toast.success("Student added successfully!");
     }
     navigate("/");
   };

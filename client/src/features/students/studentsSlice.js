@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../api";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 export const fetchStudents = createAsyncThunk(
@@ -30,6 +31,15 @@ export const updateStudentAsync = createAsyncThunk(
     return response.data;
   },
 );
+
+export const deleteStudentAsync = createAsyncThunk(
+  "student/deleteStudentAsync",
+  async (id) => {
+    await axios.delete(`${API_URL}/students/${id}`);
+    return id;
+  },
+);
+
 const studentSlice = createSlice({
   name: "students",
   initialState: {
@@ -58,6 +68,11 @@ const studentSlice = createSlice({
         (s) => s._id === action.payload._id,
       );
       if (index !== -1) state.students[index] = action.payload;
+    });
+    builder.addCase(deleteStudentAsync.fulfilled, (state, action) => {
+      state.students = state.students.filter(
+        (student) => student._id !== action.payload,
+      );
     });
   },
 });

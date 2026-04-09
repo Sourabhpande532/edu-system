@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { StudentView } from "./features/students/StudentView";
 import Header from "./components/navbar/Header";
 import { StudentForm } from "./components/student-form/StudentForm";
@@ -16,6 +18,7 @@ function App() {
           <Route path='/edit/:id' element={<StudentForm />} />
           <Route path='/details/:id' element={<StudentDetails />} />
         </Routes>
+        <ToastContainer position='top-right' />
       </BrowserRouter>
     </div>
   );
