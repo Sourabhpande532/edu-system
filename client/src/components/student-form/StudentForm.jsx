@@ -57,14 +57,14 @@ const StudentForm = () => {
       toast.success("Student Updated");
     } else {
       dispatch(addStudentAsync(form));
-      setForm({
-        name: "",
-        age: "",
-        grade: "",
-        gender: "Male",
-        marks: 0,
-        attendence: 0,
-      });
+      // setForm({
+      //   name: "",
+      //   age: "",
+      //   grade: "",
+      //   gender: "Male",
+      //   marks: 0,
+      //   attendence: 0,
+      // });
       toast.success("Student added successfully!");
     }
     navigate("/");

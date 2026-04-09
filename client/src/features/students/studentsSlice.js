@@ -5,7 +5,7 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 export const fetchStudents = createAsyncThunk(
   "students/fetchStudents",
   async () => {
-    const response = await axios.get("http://localhost:4001/students");
+    const response = await axios.get(`${API_URL}/students`);
     return response.data;
   },
 );
@@ -13,10 +13,7 @@ export const fetchStudents = createAsyncThunk(
 export const addStudentAsync = createAsyncThunk(
   "students/addStudentAsync",
   async (newStudent) => {
-    const response = await axios.post(
-      "http://localhost:4001/students",
-      newStudent,
-    );
+    const response = await axios.post(`${API_URL}/students`, newStudent);
     return response.data;
   },
 );
@@ -25,7 +22,7 @@ export const updateStudentAsync = createAsyncThunk(
   "student/updateStudentAsync",
   async ({ id, updatedStudent }) => {
     const response = await axios.put(
-      `http://localhost:4001/students/${id}`,
+      `${API_URL}/students/${id}`,
       updatedStudent,
     );
     return response.data;
@@ -86,5 +83,5 @@ const studentSlice = createSlice({
   },
 });
 
-export const { setFilter,setSortBy } = studentSlice.actions;
+export const { setFilter, setSortBy } = studentSlice.actions;
 export default studentSlice.reducer;
