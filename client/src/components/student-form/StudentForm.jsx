@@ -44,19 +44,27 @@ const StudentForm = () => {
     e.preventDefault();
     setError("");
     const { name, age, gender, grade } = form;
+
     if (!name || !age || !gender || !grade) {
       setError("Please fill in all requred fields.");
       return;
     }
-    // dispatch logic based on context (New vs Updated);
+    // dispatch logic based on context
     if (existingStudent) {
       dispatch(
         updateStudentAsync({ id: existingStudent._id, updatedStudent: form }),
-        toast.success("Student Updated"),
       );
+      toast.success("Student Updated");
     } else {
       dispatch(addStudentAsync(form));
-      setForm({ name: "", age: "", grade: "", gender: "Male" });
+      setForm({
+        name: "",
+        age: "",
+        grade: "",
+        gender: "Male",
+        marks: 0,
+        attendence: 0,
+      });
       toast.success("Student added successfully!");
     }
     navigate("/");

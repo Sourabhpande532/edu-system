@@ -6,6 +6,7 @@ import { StudentView } from "./features/students/StudentView";
 import Header from "./components/navbar/Header";
 import { StudentForm } from "./components/student-form/StudentForm";
 import { StudentDetails } from "./components/student-details/StudentDetails";
+import { ClassView } from "./components/class-view/ClassView";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/add' element={<StudentForm />} />
           <Route path='/edit/:id' element={<StudentForm />} />
           <Route path='/details/:id' element={<StudentDetails />} />
+          <Route path='/class' element={<ClassView />} />
         </Routes>
         <ToastContainer position='top-right' />
       </BrowserRouter>
