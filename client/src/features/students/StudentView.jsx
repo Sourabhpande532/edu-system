@@ -16,11 +16,11 @@ export const StudentView = () => {
   return (
     <main className='container'>
       {status === "loading" && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <div>
         <h1>Student View</h1>
         <button className='btn btn-warning'>
-          <Link to="/add">Add Student</Link>
+          <Link to='/add'>Add Student</Link>
         </button>
         <StudentList student={students} />
       </div>

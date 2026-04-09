@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   addStudentAsync,
   updateStudentAsync,
 } from "../../features/students/studentsSlice";
 
-const StudentForm = ({ existingStudent }) => {
+const StudentForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const existingStudent = location.state?.student;
+
   const [error, setError] = useState("");
   const [form, setForm] = useState({
     name: "",
@@ -16,7 +21,6 @@ const StudentForm = ({ existingStudent }) => {
     marks: 0,
     attendence: 0,
   });
-  console.log(form);
 
   // Load data if editing
   useEffect(() => {
@@ -54,6 +58,7 @@ const StudentForm = ({ existingStudent }) => {
       setForm({ name: "", age: "", grade: "", gender: "Male" });
       alert("Student added successfully!");
     }
+    navigate("/");
   };
 
   return (
@@ -85,7 +90,7 @@ const StudentForm = ({ existingStudent }) => {
         />
         <div>
           Gender:{" "}
-          <label>
+          <label className='form-label'>
             <input
               type='radio'
               value='Male'
@@ -95,7 +100,7 @@ const StudentForm = ({ existingStudent }) => {
             />{" "}
             Male
           </label>{" "}
-          <label>
+          <label className='form-label'>
             <input
               value='Female'
               type='radio'
@@ -112,17 +117,19 @@ const StudentForm = ({ existingStudent }) => {
             <input
               name='marks'
               type='number'
-              placeholder='Marks'
               value={form.marks}
               onChange={handleStudentInputs}
+              placeholder='Marks'
+              className='form-control'
             />
             <br />
             <input
               name='attendence'
               type='number'
-              placeholder='Attendence'
               value={form.attendence}
               onChange={handleStudentInputs}
+              className='form-control'
+              placeholder='Attendence'
             />
             <br />
           </>
