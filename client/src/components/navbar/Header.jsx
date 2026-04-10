@@ -5,7 +5,9 @@ const Header = () => {
     <div>
       <nav className='navbar navbar-expand-lg bg-body-tertiary'>
         <div className='container'>
-          <Link className='navbar-brand'>Student Management System</Link>
+          <Link to='/' className='navbar-brand'>
+            Student Management System
+          </Link>
           <button
             className='navbar-toggler'
             data-bs-target='#supportNavbar'
