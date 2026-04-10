@@ -19,8 +19,8 @@ const StudentForm = () => {
     age: "",
     grade: "",
     gender: "Male",
-    marks: 0,
-    attendence: 0,
+    marks: "",
+    attendence: "",
   });
 
   // Load data if editing
@@ -49,25 +49,22 @@ const StudentForm = () => {
       setError("Please fill in all requred fields.");
       return;
     }
-    // dispatch logic based on context
-    if (existingStudent) {
-      dispatch(
-        updateStudentAsync({ id: existingStudent._id, updatedStudent: form }),
-      );
-      toast.success("Student Updated");
-    } else {
-      dispatch(addStudentAsync(form));
-      // setForm({
-      //   name: "",
-      //   age: "",
-      //   grade: "",
-      //   gender: "Male",
-      //   marks: 0,
-      //   attendence: 0,
-      // });
-      toast.success("Student added successfully!");
+    try {
+      // dispatch logic based on context
+      if (existingStudent) {
+        dispatch(
+          updateStudentAsync({ id: existingStudent._id, updatedStudent: form }),
+        );
+        toast.success("Student Updated");
+      } else {
+        dispatch(addStudentAsync(form));
+        toast.success("Student added successfully!");
+      }
+      navigate("/");
+    } catch (error) {
+      setError(error.message || "Something went wrong with the server.");
+      toast.error(error?.message || "Failed to save student.");
     }
-    navigate("/");
   };
 
   return (
