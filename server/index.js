@@ -7,6 +7,7 @@ const dns = require("dns");
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const { initializeDatabase } = require("./db/db.connection");
 const { Student } = require("./models/student.model");
+const Teacher = require("./models/teacher.model");
 const { error } = require("console");
 
 const corsOption = {
@@ -75,6 +76,23 @@ app.delete("/students/:id", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+// Routes
+app.get("/teachers", async (req, res) => {
+  const teacher = await Teacher.find();
+  res.json(teacher);
+});
+
+app.post("/teachers", async (req, res) => {
+  const teacher = new Teacher(req.body);
+  await teacher.save();
+  res.json(teacher);
+});
+
+app.delete("/teachers/:id", async (req, res) => {
+  await Teacher.findByIdAndDelete(req.params.id);
+  res.json({ message: "Deleted" });
 });
 
 const PORT = process.env.PORT || 4001;

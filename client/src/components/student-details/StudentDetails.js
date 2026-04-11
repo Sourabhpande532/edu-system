@@ -23,18 +23,24 @@ const StudentDetails = () => {
   }, [dispatch, students.length]);
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this student?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this student?",
+    );
     if (!confirmDelete) return;
     await dispatch(deleteStudentAsync(id));
     toast.success("Student deleted successfully");
     navigate("/");
   };
-
-  if (status === "loading") return <p>Loading..</p>;
-  if (!existingStudent) return <p>Student not found.</p>;
+  if (!existingStudent)
+    return <p className='text-center'>Student not found.</p>;
   return (
     <div className='container py-3'>
       <h1>Student Details</h1>
+      {status === "loading" && (
+        <div className='text-center'>
+          <div className='spinner-border'>loading....</div>
+        </div>
+      )}
       <p>Name: {existingStudent.name}</p>
       <p>Age: {existingStudent.age}</p>
       <p>Grade: {existingStudent.grade}</p>
@@ -53,10 +59,10 @@ const StudentDetails = () => {
           </Link>
         </button>
         {"  "}
-        <button 
-        onClick={handleDelete} className='btn btn-danger'
-        disabled={status === "loading"}
-        >
+        <button
+          onClick={handleDelete}
+          className='btn btn-danger'
+          disabled={status === "loading"}>
           {status === "loading" ? "Deleting..." : "Delete"}
         </button>
       </div>
