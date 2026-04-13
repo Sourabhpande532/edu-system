@@ -8,6 +8,8 @@ import { StudentForm } from "./components/student-form/StudentForm";
 import { StudentDetails } from "./components/student-details/StudentDetails";
 import { ClassView } from "./components/class-view/ClassView";
 import { SchoolView } from "./components/school-view/SchoolView";
+import TeacherView from "./features/teacher/TeacherView";
+import TeacherForm from "./components/teacher-form/TeacherForm";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path='/details/:id' element={<StudentDetails />} />
           <Route path='/class' element={<ClassView />} />
           <Route path='/school' element={<SchoolView />} />
+          <Route path='/teacher' element={<TeacherView />} />
+          <Route path='/teacher-form' element={<TeacherForm />} />
         </Routes>
         <ToastContainer position='top-right' />
       </BrowserRouter>
