@@ -106,6 +106,7 @@ MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/anvaya
 
 # CORS
 CLIENT_URL=http://localhost:3000
+FRONTEND_URL:https://edu-system-a1pf.vercel.app/
 
 ```
 
