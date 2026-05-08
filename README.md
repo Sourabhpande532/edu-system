@@ -9,20 +9,19 @@ Built with React (frontend), Node.js/Express (backend), and MongoDB (database).
 
 ## Demo Link
 
-- Live Demo: [Add Live URL Here](https://edu-system-a1pf.vercel.app/)
+[Live Demo](https://edu-system-a1pf.vercel.app/)
 
 ---
 
-## Quick Start
+## Quick Start 
 
-- Clone the repo  
-  git clone [Add GitHub Repo URL Here](https://github.com/Sourabhpande532/edu-system)
-- Navigate to project  
-  cd edu-system
-- Install dependencies  
-  npm install
-- Run the app  
-  npm start
+```
+git clone https://github.com/Sourabhpande532/edu-system.git
+cd edu-system.git
+npm install
+npm run dev
+
+```
 
 ---
 
