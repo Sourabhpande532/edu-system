@@ -20,22 +20,41 @@ const TeacherForm = () => {
   };
 
   return (
-    <form className='container py-3' onSubmit={handleSubmit}>
-      <input
-        placeholder='Teacher Name'
-        className='form-control mb-2'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        placeholder='Subject'
-        className='form-control mb-2'
-        value={subject}
-        onChange={(e) => setSubject(e.target.value)}
-      />
+    <div className='container py-4'>
+      <div className="card shadow-sm border-0" style={{ maxWidth: '500px', margin: '0 auto' }}>
+        <div className="card-header bg-white border-bottom-0 pt-4 pb-0">
+          <h2 className="mb-0 text-primary">Add Teacher</h2>
+        </div>
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label text-muted">Teacher Name</label>
+              <input
+                placeholder='Enter teacher name'
+                className='form-control'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="form-label text-muted">Subject</label>
+              <input
+                placeholder='Enter subject'
+                className='form-control'
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                required
+              />
+            </div>
 
-      <button className='btn btn-outline-primary mt-3'>Add Teacher</button>
-    </form>
+            <div className="d-grid">
+              <button className='btn btn-primary py-2'>Add Teacher</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 

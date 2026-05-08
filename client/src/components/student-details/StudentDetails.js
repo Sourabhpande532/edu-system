@@ -34,37 +34,63 @@ const StudentDetails = () => {
   if (!existingStudent)
     return <p className='text-center'>Student not found.</p>;
   return (
-    <div className='container py-3'>
-      <h1>Student Details</h1>
-      {status === "loading" && (
-        <div className='text-center'>
-          <div className='spinner-border'>loading....</div>
+    <div className='container py-4 max-w-md mx-auto'>
+      <div className="card shadow-sm border-0" style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <div className="card-header bg-white border-bottom-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
+          <h2 className="mb-0 text-primary">Student Details</h2>
+          <span className="badge bg-primary fs-6">{existingStudent.grade}</span>
         </div>
-      )}
-      <p>Name: {existingStudent.name}</p>
-      <p>Age: {existingStudent.age}</p>
-      <p>Grade: {existingStudent.grade}</p>
-      {existingStudent.attendence !== undefined && (
-        <p>Attendence: {existingStudent.attendence}</p>
-      )}
-      {existingStudent.marks !== undefined && (
-        <p>Marks: {existingStudent.marks}</p>
-      )}
-      <div className=''>
-        <button className='btn bg-warning'>
-          <Link
-            to={`/edit/${existingStudent._id}`}
-            state={{ student: existingStudent }}>
-            Edit Details
-          </Link>
-        </button>
-        {"  "}
-        <button
-          onClick={handleDelete}
-          className='btn btn-danger'
-          disabled={status === "loading"}>
-          {status === "loading" ? "Deleting..." : "Delete"}
-        </button>
+        <div className="card-body">
+          {status === "loading" && (
+            <div className='text-center py-4'>
+              <div className='spinner-border text-primary' role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          )}
+          
+          <div className="mb-4">
+            <h4 className="card-title fw-bold">{existingStudent.name}</h4>
+            <p className="text-muted mb-3">{existingStudent.gender}</p>
+          </div>
+
+          <ul className="list-group list-group-flush mb-4">
+            <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+              <span className="text-muted">Age</span>
+              <span className="fw-medium">{existingStudent.age} years</span>
+            </li>
+            {existingStudent.attendence !== undefined && (
+              <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span className="text-muted">Attendance</span>
+                <span className={`fw-medium ${existingStudent.attendence >= 75 ? 'text-success' : 'text-danger'}`}>
+                  {existingStudent.attendence}%
+                </span>
+              </li>
+            )}
+            {existingStudent.marks !== undefined && (
+              <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span className="text-muted">Marks</span>
+                <span className="fw-medium">{existingStudent.marks}</span>
+              </li>
+            )}
+          </ul>
+
+          <div className='d-flex gap-2 mt-4'>
+            <Link
+              to={`/edit/${existingStudent._id}`}
+              state={{ student: existingStudent }}
+              className='btn btn-warning flex-grow-1 text-white fw-medium'>
+              <i className="bi bi-pencil me-2"></i>Edit
+            </Link>
+            <button
+              onClick={handleDelete}
+              className='btn btn-outline-danger flex-grow-1'
+              disabled={status === "loading"}>
+              <i className="bi bi-trash me-2"></i>
+              {status === "loading" ? "Deleting..." : "Delete"}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
